@@ -4,7 +4,45 @@ const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const regexTel = /^(\+33\s?|0)\s?[1-9]\s?(\d{2}\s?){3}\d{2}$/;
 const info = document.createElement("p");
 
+// Ecouteurs d'évènements
 
+form.firstName.addEventListener("keyup", () =>{
+    countChar(form.firstName);
+})
+
+form.lastName.addEventListener("keyup", () =>{
+    countChar(form.lastName);
+})
+
+form.email.addEventListener("keyup", () =>{
+    validationUI(form.email, regexEmail);
+})
+
+form.pass1.addEventListener("keyup", () =>{
+    checkPass(form.pass1, form.pass2);
+})
+
+form.pass2.addEventListener("keyup", () =>{
+    checkPass(form.pass1, form.pass2);
+})
+
+form.contact.addEventListener("keyup", () => {
+    validationUI(form.contact, regexTel);
+});
+
+form.majeur.addEventListener("change", () => {
+    isMajor(form.majeur);
+})
+
+// Soumission du formulaire
+
+form.addEventListener("submit", (e) => {
+    // Tester chaque champ
+    // A chaque fois on enregistre la réponse dans un tableau
+    // Tester si tous les champs du tableau === true pour envoyer le formulaire
+    e.preventDefault();
+    console.log("========================> form submitted")
+})
 
 // Compter de nombre de caractères
 function countChar(input) {
@@ -12,16 +50,16 @@ function countChar(input) {
         input.classList.remove("danger");
         input.classList.add("success");
         input.parentElement.classList.add("success-checked");
+        console.info(`✅ ${input.id}: Nb de charactère OK`)
         return true;
     } else {
         input.classList.remove("success");
         input.parentElement.classList.remove("success-checked");
         input.classList.add("danger");
+        console.warn(`${input.id}: Nb de charactère incorrect`)
         return false;
     }
 }
-
-
 
 // Vérifier la présence d'un mail valide et d'un numéro de téléphone valide
 function validationUI(input, regex) {

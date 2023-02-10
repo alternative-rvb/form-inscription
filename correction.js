@@ -33,6 +33,7 @@ form.majeur.addEventListener("change", () => {
     isMajor(form.majeur);
 });
 
+
 // Soumission du formulaire
 form.addEventListener("submit", (e) => {
     e.preventDefault();
